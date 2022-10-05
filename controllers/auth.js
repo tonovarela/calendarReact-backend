@@ -6,7 +6,6 @@ const Usuario = require("../models/Usuario");
 
 const crearUsuario = async (req, res = response) => {
     const { name, email, password } = req.body
-
     const usuario = new Usuario(req.body);
     try {
         let usuarioDB = await Usuario.findOne({ email });

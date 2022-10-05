@@ -4,6 +4,7 @@ const cors = require("cors");
 require('dotenv').config();
 const app = express();
 
+
 //Base de datos
 dbConnection();
 
@@ -18,12 +19,13 @@ app.use(express.json());
 
 //Authentication
 app.use('/api/auth', require("./routes/auth"))
+//CRUD Eventos Calendar
 app.use('/api/events',require("./routes/events"))
 
 
 
 
-//CRUD Eventos Calendar
+
 
 
 
