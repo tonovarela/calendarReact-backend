@@ -78,18 +78,38 @@ const actualizarEvento = async (req, res = response) => {
 
 const borrarEvento = async (req, res = response) => {
     const { id } = req.params;
+    const ui = req.uid;
 
     try {
-        const eventoEliminado =await Evento.findByIdAndDelete(id);
-        if (!eventoEliminado){
+        const evento = await Evento.findById(id);
+        if (!evento) {
             return res.status(404).json({
                 ok: false,
                 msg: "Evento no existe"
             })
         }
+
+        if (evento.user.toString() !== ui) {
+            return res.status(401).json({
+                ok: false,
+                msg: "El usuario no puede modificar este evento"
+            })
+        }
+
+        const eventoEliminado = await Evento.findByIdAndDelete(id);
+        if (!eventoEliminado) {
+            return res.status(404).json({
+                ok: false,
+                msg: "Evento no existe"
+            })
+        }
+
+
+
+
         return res.json({
             ok: true,
-            evento:eventoEliminado,
+            evento: eventoEliminado,
             mensaje: "Evento eliminado"
         })
     } catch (error) {
