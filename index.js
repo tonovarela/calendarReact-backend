@@ -23,14 +23,6 @@ app.use('/api/auth', require("./routes/auth"))
 app.use('/api/events',require("./routes/events"))
 
 
-
-
-
-
-
-
-
-
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT , () => {
     console.log(`Listening on port ${process.env.PORT}!`);
 });

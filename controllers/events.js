@@ -1,7 +1,5 @@
 const { response } = require('express');
-
 const Evento = require("../models/Evento");
-
 const listarEventos = async (req, res = response) => {
     try {
         const eventos = await Evento.find().populate('user', 'name');
@@ -16,7 +14,6 @@ const listarEventos = async (req, res = response) => {
         });
     }
 }
-
 const crearEvento = async (req, res = response) => {
     const evento = new Evento(req.body);
     try {
@@ -36,9 +33,6 @@ const crearEvento = async (req, res = response) => {
     });
 
 }
-
-
-
 const actualizarEvento = async (req, res = response) => {
     const { id } = req.params;
     const uid = req.uid;
@@ -74,8 +68,6 @@ const actualizarEvento = async (req, res = response) => {
 
 
 }
-
-
 const borrarEvento = async (req, res = response) => {
     const { id } = req.params;
     const ui = req.uid;
@@ -88,14 +80,12 @@ const borrarEvento = async (req, res = response) => {
                 msg: "Evento no existe"
             })
         }
-
         if (evento.user.toString() !== ui) {
             return res.status(401).json({
                 ok: false,
                 msg: "El usuario no puede modificar este evento"
             })
         }
-
         const eventoEliminado = await Evento.findByIdAndDelete(id);
         if (!eventoEliminado) {
             return res.status(404).json({
@@ -103,10 +93,6 @@ const borrarEvento = async (req, res = response) => {
                 msg: "Evento no existe"
             })
         }
-
-
-
-
         return res.json({
             ok: true,
             evento: eventoEliminado,
